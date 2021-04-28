@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 aiohttp = "*"
+aiomysql = "*"
+aioredis = "*"
+uvloop = "*"
 
 [dev-packages]
 

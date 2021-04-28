@@ -9,6 +9,6 @@ import json
 
 from aiohttp import web
 
-from common.libs.tools import json_format
+from common.libs.tools import json_format, MyAioMySQL, MyAioRedis
 from common.libs.api_result import api_result
 from registry.hook_register import ab_code
