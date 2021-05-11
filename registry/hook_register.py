@@ -5,6 +5,7 @@
 # @File    : hook_register.py
 # @Software: PyCharm
 
+import re
 import json
 
 from aiohttp import web
@@ -18,6 +19,7 @@ custom_resp_dict = {
     403: '无权限',
     500: '服务器异常',
     666: 'Token?',
+    777: 'Sql注入警告',
     996: '没救了'
 }
 
@@ -52,7 +54,24 @@ async def before_middleware(request, handler):
 
     if has_body:
         print('=== request json data ===')
-        json_format(await req_json())
+        req_json = await req_json()
+        for val in req_json.values():
+            val = str(val).lower()
+            pattern = r"\b(and|like|exec|insert|select|drop|grant|alter|delete|update|count|chr|mid|master|truncate|char|delclare|or)\b|(\*|;)"
+            r = re.search(pattern, val)
+            if r:
+                print(val)
+                resp = {
+                    "code": 777,
+                    "message": "CustomException:【Sql注入警告】",
+                    "data": "{} {}".format(method, path)
+                }
+                json_format(resp)
+                return web.json_response(resp)
+            else:
+                pass
+
+        json_format(req_json)
     else:
         json_format({})
 
