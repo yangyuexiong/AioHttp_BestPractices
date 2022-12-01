@@ -18,11 +18,11 @@ class TestApi(web.View):
         db = MyAioMySQL(pool=pool)
         sql = "select * from test;"
 
-        r = await db.query(sql=sql)
+        r = await db.pool_query(sql=sql)
         print(r)
-        r = await db.query(sql=sql, size=1)
+        r = await db.pool_query(sql=sql, size=1)
         print(r)
-        r = await db.query(sql=sql, only=True)
+        r = await db.pool_query(sql=sql, only=True)
         print(r)
 
         sql = """INSERT INTO `AioHttp_BestPractices`.`test` (`name`) VALUES ('yyx3');"""

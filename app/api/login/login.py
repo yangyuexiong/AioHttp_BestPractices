@@ -14,7 +14,7 @@ class LoginApi(web.View):
     async def get(self):
         sql = "select * from test;"
         db = MyAioMySQL(pool=self.request.app['aio_mysql_engine'])
-        r = await db.query(sql)
+        r = await db.pool_query(sql)
         data = {
             "db_id": id(db),
             "r": r
@@ -32,7 +32,7 @@ class LoginApi(web.View):
         sql = "select * from test where name='{}';".format(username)
         print(sql)
 
-        user = await db.query(sql=sql, only=True)
+        user = await db.pool_query(sql=sql, only=True)
         print(user)
         if user and user.get('pwd') == '123456':
             data = {
