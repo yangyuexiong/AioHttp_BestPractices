@@ -8,28 +8,26 @@
 import os
 import configparser
 
-project_name = 'AioHttp_BestPractices'
-
 
 def get_config():
     """获取配置文件"""
     conf = configparser.ConfigParser()
     AIO_SERVER_ENV = os.environ.get('AIO_SERVER_ENV')
-    current_path = os.getcwd()
-    config_path = current_path.split(project_name)[0] + project_name + '/config'
+    base_path = os.path.dirname(os.path.abspath(__file__)) + '/'
+
     default_env = {
-        'config_path': config_path + '/dev.ini',
-        'msg': '本地配置文件:{}'.format(config_path + '/dev.ini'),
+        'config_path': base_path + 'dev.ini',
+        'msg': '本地配置文件:{}'.format(base_path + 'dev.ini'),
     }
     env_path_dict = {
         'default': default_env,
         'uat': {
-            'config_path': config_path + '/uat.ini',
-            'msg': 'uat配置文件:{}'.format(config_path + '/uat.ini'),
+            'config_path': base_path + 'uat.ini',
+            'msg': 'uat配置文件:{}'.format(base_path + 'uat.ini'),
         },
 
         'production': {
-            'config_path': config_path + '/prod.ini',
+            'config_path': base_path + 'prod.ini',
             'msg': 'prod配置文件:{}'.format('/srv/a/config/prod.ini')
         },
     }
