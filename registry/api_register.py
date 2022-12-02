@@ -13,3 +13,4 @@ def register_api(app):
 
     app.router.add_route('*', '/api', Index)
     app.router.add_route('*', '/api/login', LoginApi)
+    app.router.add_route('*', '/api/test', TestApi)

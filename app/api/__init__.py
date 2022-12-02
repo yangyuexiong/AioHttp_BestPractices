@@ -7,3 +7,4 @@
 
 from .index.index import Index
 from .login.login import LoginApi
+from .test.test import TestApi
